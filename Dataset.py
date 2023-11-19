@@ -23,7 +23,7 @@ count_of_value = merged_df1['QuantityPerYear'].value_counts().get(0, 0)
 
 print(count_of_value)
 
-merged_df1 = merged_df1.fillna(0)
+merged_df2 = merged_df2.fillna(0)
 print(merged_df1)
 
 count_negative_values = (merged_df1['QuantityPerYear'] < 0).sum()
@@ -55,9 +55,9 @@ print(merged_df1)
 bio_column = np.random.choice([0, 1], size=len(merged_df1), p=[0.80, 0.20])
 merged_df2['Bio'] = bio_column
 
-count_above_1 = (merged_df2['Bio'] == 1).sum()
+count_above_1 = merged_df2.isna().sum()
 
-print(count_above_1)
+print("value count", count_above_1)
 
 
 
