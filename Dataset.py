@@ -32,35 +32,35 @@ print("Number of negative values in column:")
 print(count_negative_values)
 
 # Create the new column with the ceiling values
-merged_df1['RestockPoint'] = np.ceil(merged_df1['QuantityPerYear'])
+merged_df2['RestockPoint'] = np.ceil(merged_df2['QuantityPerYear'])
 
 # Create a new column Rating
-merged_df1['Rating'] = np.random.normal(loc=4.2, scale=1.0, size=len(merged_df1))
+merged_df2['Rating'] = np.random.normal(loc=4.2, scale=1.0, size=len(merged_df2))
 
-merged_df1['Rating'] = merged_df1['Rating'].clip(0.0, 5.0)
+merged_df2['Rating'] = merged_df2['Rating'].clip(0.0, 5.0)
 
 print(merged_df1)
 
-median_value = merged_df1['Rating'].median()
-mean_value = merged_df1['Rating'].mean()
-
-print(f"The median of is: {median_value}")
-print(f"The mean of is: {mean_value}")
-
-count_above_3_5 = (merged_df1['Rating'] > 3.5).sum()
-
-print(count_above_3_5)
+# median_value = merged_df1['Rating'].median()
+# mean_value = merged_df1['Rating'].mean()
+#
+# print(f"The median of is: {median_value}")
+# print(f"The mean of is: {mean_value}")
+#
+# count_above_3_5 = (merged_df1['Rating'] > 3.5).sum()
+#
+# print(count_above_3_5)
 
 
 bio_column = np.random.choice([0, 1], size=len(merged_df1), p=[0.80, 0.20])
-merged_df1['Bio'] = bio_column
+merged_df2['Bio'] = bio_column
 
-count_above_1 = (merged_df1['Bio'] == 1).sum()
+count_above_1 = (merged_df2['Bio'] == 1).sum()
 
 print(count_above_1)
 
 
 
 
-print(merged_df1)
+print(merged_df2)
 merged_df2.to_csv('inventory1.csv', index=False)
