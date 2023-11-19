@@ -19,20 +19,20 @@ merged_df2 = pd.merge(merged_df1, additional_info2, on='ProductName', how='left'
 
 nan_count_per_column = merged_df1.isna().sum()
 
-count_of_value = merged_df1['QuantityPerYear'].value_counts().get(0, 0)
+count_of_value = merged_df1['MeanValue'].value_counts().get(0, 0)
 
 print(count_of_value)
 
 merged_df2 = merged_df2.fillna(0)
 print(merged_df1)
 
-count_negative_values = (merged_df1['QuantityPerYear'] < 0).sum()
+count_negative_values = (merged_df1['MeanValue'] < 0).sum()
 
 print("Number of negative values in column:")
 print(count_negative_values)
 
 # Create the new column with the ceiling values
-merged_df2['RestockPoint'] = np.ceil(merged_df2['QuantityPerYear'])
+merged_df2['RestockPoint'] = np.ceil(merged_df2['MeanValue'])
 
 # Create a new column Rating
 merged_df2['Rating'] = np.random.normal(loc=4.2, scale=1.0, size=len(merged_df2))

@@ -2,7 +2,7 @@ import pandas as pd
 
 pd.set_option('display.max_columns', 10)
 # Assuming your DataFrame is named 'your_dataframe'
-df = pd.read_csv('Sales Transactions 1.csv')  # Replace 'your_data.csv' with the actual file name
+df = pd.read_csv('Sales Transactions 1.csv')
 
 # Group by 'ProductNo' and count the number of transactions per item
 transactions_per_item = df.groupby('ProductNo')['TransactionNo'].count().reset_index()
