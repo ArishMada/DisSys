@@ -1,5 +1,7 @@
+#Import Module
 import pandas as pd
 
+#Read csv
 df = pd.read_csv("Sales Transactions 1.csv", encoding = "windows-1252")
 print(df)
 
@@ -15,10 +17,8 @@ average_quantity_per_month = df.groupby(['ProductName', 'MonthYear'])['Quantity'
 # Round the average quantity to three decimal points
 average_quantity_per_month['Quantity'] = average_quantity_per_month['Quantity']
 
-# Print or display the result
 print(average_quantity_per_month)
 
-# Pivot the DataFrame to have 'MonthYear' values as separate columns
 pivot_df = average_quantity_per_month.pivot(index='ProductName', columns='MonthYear', values='Quantity').reset_index().round(3)
 
 # Rename the columns with the name of the month
@@ -27,9 +27,10 @@ pivot_df.columns = ['ProductName'] + [f"{month.strftime('%B')}" if month.month !
 
 print(pivot_df)
 
+#Change NaN data to 0
 pivot_df = pivot_df.fillna(0)
 
 print(pivot_df)
 
-# Save the result to a new CSV file
+# Export the result to csv
 pivot_df.to_csv('AverageQuantityPerMonthPerItem.csv', index=False)
