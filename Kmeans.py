@@ -1,14 +1,18 @@
+#Import modules
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
+#Set pandas to display max 10 columns
 pd.set_option('display.max_columns', 10)
 
+#Read csv
 data=pd.read_csv("inventory1.csv")
 print(data.head())
 
+#Get data from the csv (min, max, mean, etc)
 print(data.describe())
 
 new_data = data.iloc[:, 1:]
