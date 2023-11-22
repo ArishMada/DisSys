@@ -3,10 +3,14 @@
 
 # In[328]:
 
-
 import pandas as pd
-import csv
-
+import matplotlib.pyplot as plt
+import numpy as np
+from holoviews.ipython import display
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error,r2_score,mean_absolute_error
 
 groceries_DataFrame = pd.read_csv("inventory1.csv", nrows=3754)
 groceries_DataFrame = groceries_DataFrame.fillna(0)
@@ -33,7 +37,6 @@ X
 # In[331]:
 
 
-from sklearn.model_selection import train_test_split
 
 X_train, X_test,y_train,y_test = train_test_split(X,y, test_size = 0.2, random_state = 100)
 
@@ -65,8 +68,6 @@ y_test
 # In[336]:
 
 
-from sklearn.linear_model import LinearRegression
-
 lr = LinearRegression()
 lr.fit(X_train,y_train)
 
@@ -93,13 +94,12 @@ y_lr_train_pred
 # In[340]:
 
 
-y_lr_test_pred
+print("This:", y_lr_test_pred)
 
 
 # In[341]:
 
 
-from sklearn.metrics import mean_squared_error,r2_score,mean_absolute_error
 
 lr_train_mse = mean_squared_error(y_train,y_lr_train_pred)
 lr_train_r2 = r2_score(y_train,y_lr_train_pred)
@@ -171,7 +171,6 @@ lr_results
 # In[351]:
 
 
-from sklearn.ensemble import RandomForestRegressor
 
 rf = RandomForestRegressor(max_depth = 2, random_state = 100)
 rf.fit(X_train, y_train)
@@ -212,6 +211,7 @@ rf_results
 df_models = pd.concat([lr_results, rf_results], axis =0)
 df_models
 
+print(df_models)
 
 # In[356]:
 
@@ -222,8 +222,6 @@ df_models.reset_index(drop = True)
 # In[357]:
 
 
-import matplotlib.pyplot as plt
-import numpy as np
 
 plt.scatter(x=y_test, y=y_lr_test_pred)
 
@@ -239,9 +237,6 @@ plt.plot
 # In[358]:
 
 
-import matplotlib.pyplot as plt
-import numpy as np
-
 plt.scatter(x=y_test, y=y_rf_test_pred)
 
 z = np.polyfit(y_test,y_rf_test_pred, 1)
@@ -249,6 +244,4 @@ p = np.poly1d(z)
 
 plt.ylabel('Predict Logs')
 plt.xlabel('Experimental Logs')
-
-plt.plot
 
