@@ -23,3 +23,12 @@ clf = clf.fit(X_train,y_train)
 y_pred = clf.predict(X_test)
 
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+result = pd.concat([df.loc[X_test.index, 'ProductName'], X_test], axis=1)
+
+result = pd.DataFrame({'ProductName': result['ProductName'], 'Restock': y_pred})
+
+result = result[result['Restock'].astype(str).str.contains('1', case=False)]
+
+print(result['ProductName'])
+

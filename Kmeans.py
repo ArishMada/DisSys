@@ -5,24 +5,34 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-#Set pandas to display max 10 columns
 pd.set_option('display.max_columns', 10)
 
-#Read csv
 data=pd.read_csv("inventory1.csv")
 print(data.head())
 
-#Get data from the csv (min, max, mean, etc)
 print(data.describe())
 
-new_data = data.iloc[:, 1:]
+# Calculate the first and third quartiles
+Q1 = data['Sales'].quantile(0.25)
+Q3 = data['Sales'].quantile(0.75)
+
+# IQR (Interquartile Range)
+IQR = Q3 - Q1
+
+# upper and lower bounds to identify outliers
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Filter the DataFrame to exclude rows with values outside the bounds
+filtered_data = data[(data['Sales'] >= lower_bound) & (data['Sales'] <= upper_bound)]
+
+new_data = filtered_data.iloc[:, 1:]
 
 print(new_data)
 
 scaler = StandardScaler()
 data_scaled = scaler.fit_transform(new_data)
 
-# statistics of scaled data
 print(pd.DataFrame(data_scaled).describe())
 
 # defining the kmeans function with initialization as k-means++
@@ -44,10 +54,17 @@ plt.ylabel('Inertia')
 plt.title('Elbow Method for Optimal k')
 # plt.show()
 
-kmeans = KMeans(n_clusters = 6, init='k-means++')
+np.random.seed(5)
+
+kmeans = KMeans(n_clusters = 2, init='k-means++')
 kmeans.fit(data_scaled)
 pred = kmeans.predict(data_scaled)
 
 frame = pd.DataFrame(data_scaled)
 frame['cluster'] = pred
 print(frame['cluster'].value_counts())
+
+rows_in_desired_cluster = frame[frame['cluster'] == 0].iloc[:, :-1]
+print(rows_in_desired_cluster)
+
+print(new_data.loc[3098])

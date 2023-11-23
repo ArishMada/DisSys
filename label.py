@@ -26,6 +26,13 @@ print("value count", count_above_1)
 
 df1.to_csv('label.csv', index=False)
 
+
+merged_df = pd.merge(df, df1, on='ProductName', how='left')
+
+print(merged_df)
+
+merged_df.to_csv('inventory1.csv', index=False)
+
 # for index, row in df1.iterrows():
 #     restock = row["Restock"]
 #     pn = row["ProductName"]

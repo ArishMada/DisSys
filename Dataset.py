@@ -71,9 +71,5 @@ count_above_1 = merged_df2.isna().sum()
 
 print("value count", count_above_1)
 
-additional_info3 = pd.read_csv('label.csv')
-
-merged_df3 = pd.merge(merged_df2, additional_info3, on='ProductName', how='left')
-
-print(merged_df3)
-merged_df3.to_csv('inventory1.csv', index=False)
+print(merged_df2)
+merged_df2.to_csv('inventory1.csv', index=False)
